@@ -1,27 +1,19 @@
 // W means wall
 
 function rougeGame() {
-  const gameFieldWWidth = 40;
-  const gameFieldHeight = 24;
-  const grid = [];
+  var gameFieldWWidth = 40;
+  var gameFieldHeight = 24;
+  var grid;
 
   // Instead of searching through the grid for hero coords every turn
   // we remember and update hero's position
-  let currentHeroCoords;
+  var currentHeroCoords;
   // The same for enemies
-  let currentEnemiesCoords = [];
-  const fieldContainer = document.querySelector(".field");
+  var currentEnemiesCoords;
+  var fieldContainer = document.querySelector(".field");
 
   function initGameGrid() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      grid.push([]);
-      for (let j = 0; j < gameFieldWWidth; j++) {
-        grid[i].push("Wall");
-      }
-    }
-
-    createRandomRooms();
-    createRandomCorridors();
+    grid = Grid(gameFieldWWidth, gameFieldHeight);
 
     createRandomlyPlacedEntity(2, "Sword");
     createRandomlyPlacedEntity(10, "Flask");
@@ -31,6 +23,7 @@ function rougeGame() {
       currentHealth: 10,
       maxHealth: 10,
     });
+    currentEnemiesCoords = getEnemiesCoords(grid);
 
     createRandomlyPlacedEntity(1, {
       type: "hero",
@@ -38,100 +31,16 @@ function rougeGame() {
       maxHealth: 100,
       damage: 3,
     });
-    currentHeroCoords = getHeroCoords();
+    currentHeroCoords = getHeroCoords(grid);
 
     setUpEventListeners();
 
     renderField();
   }
 
-  function getHeroCoords() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWWidth; j++) {
-        if (typeof grid[i][j] === "object") {
-          if (grid[i][j].type === "hero") {
-            return { x: j, y: i };
-          }
-        }
-      }
-    }
-  }
-
-  function getEnemiesCoords() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWWidth; j++) {
-        if (typeof grid[i][j] === "object") {
-          if (grid[i][j].type === "enemy") {
-            currentEnemiesCoords.push({ x: j, y: i });
-          }
-        }
-      }
-    }
-  }
-
-  function createRandomRooms() {
-    const roomsCount = getRandomNumber(5, 10);
-
-    for (let i = 0; i < roomsCount; i++) {
-      const currentRoomWidth = getRandomNumber(3, 8);
-      const currentRoomHeight = getRandomNumber(3, 8);
-
-      let topLeftRoomX = getRandomNumber(0, gameFieldWWidth - currentRoomWidth);
-      let topLeftRoomY = getRandomNumber(
-        0,
-        gameFieldHeight - currentRoomHeight
-      );
-
-      while (grid[topLeftRoomY][topLeftRoomX] !== "Wall") {
-        topLeftRoomX = getRandomNumber(0, gameFieldWWidth - currentRoomWidth);
-        topLeftRoomY = getRandomNumber(0, gameFieldHeight - currentRoomHeight);
-      }
-
-      for (let i = topLeftRoomY; i < topLeftRoomY + currentRoomHeight; i++) {
-        for (let j = topLeftRoomX; j < topLeftRoomX + currentRoomWidth; j++) {
-          grid[i][j] = "Empty";
-        }
-      }
-    }
-  }
-
-  function createRandomCorridors() {
-    const horizontalCorridorsCount = getRandomNumber(3, 5);
-    const horizontalIndexes = [];
-    for (let i = 0; i < horizontalCorridorsCount; i++) {
-      let horizontalCorridorIndex = getRandomNumber(0, gameFieldHeight - 1);
-
-      while (horizontalIndexes.includes(horizontalCorridorIndex)) {
-        horizontalCorridorIndex = getRandomNumber(0, gameFieldHeight - 1);
-      }
-
-      horizontalIndexes.push(horizontalCorridorIndex);
-
-      for (let j = 0; j < gameFieldWWidth; j++) {
-        grid[horizontalCorridorIndex][j] = "Empty";
-      }
-    }
-
-    const verticalIndexes = [];
-    const verticalCorridorsCount = getRandomNumber(3, 5);
-    for (let i = 0; i < verticalCorridorsCount; i++) {
-      let verticalCorridorIndex = getRandomNumber(0, gameFieldWWidth - 1);
-
-      while (verticalIndexes.includes(verticalCorridorIndex)) {
-        verticalCorridorIndex = getRandomNumber(0, gameFieldWWidth - 1);
-      }
-
-      verticalIndexes.push(verticalCorridorIndex);
-
-      for (let j = 0; j < gameFieldHeight; j++) {
-        grid[j][verticalCorridorIndex] = "Empty";
-      }
-    }
-  }
-
   function getRandomEmptySpace() {
-    let randomX = getRandomNumber(0, gameFieldWWidth - 1);
-    let randomY = getRandomNumber(0, gameFieldHeight - 1);
+    var randomX = getRandomNumber(0, gameFieldWWidth - 1);
+    var randomY = getRandomNumber(0, gameFieldHeight - 1);
 
     while (grid[randomY][randomX] !== "Empty") {
       randomX = getRandomNumber(0, gameFieldWWidth - 1);
@@ -142,12 +51,12 @@ function rougeGame() {
   }
 
   function createRandomlyPlacedEntity(count, entityInput) {
-    for (let i = 0; i < count; i++) {
-      let entityCopy = structuredClone(entityInput);
+    for (var i = 0; i < count; i++) {
+      var entityCopy = structuredClone(entityInput);
 
-      const emptySquareCoords = getRandomEmptySpace();
-      const emptySquareX = emptySquareCoords[0];
-      const emptySquareY = emptySquareCoords[1];
+      var emptySquareCoords = getRandomEmptySpace();
+      var emptySquareX = emptySquareCoords[0];
+      var emptySquareY = emptySquareCoords[1];
 
       grid[emptySquareY][emptySquareX] = entityCopy;
     }
@@ -155,6 +64,10 @@ function rougeGame() {
 
   function setUpEventListeners() {
     window.addEventListener("keydown", (e) => {
+      // if (!playersTurn) {
+      //   return;
+      // }
+
       if (
         e.key !== "w" &&
         e.key !== "a" &&
@@ -168,7 +81,7 @@ function rougeGame() {
       makePlayerTurn(e.key);
 
       // and wait for it
-      makeEnemiesTurn();
+      // makeEnemiesTurn();
     });
   }
 
@@ -191,14 +104,20 @@ function rougeGame() {
   }
 
   function movePlayer(x, y) {
-    let currentHeroX = currentHeroCoords.x;
-    let currentHeroY = currentHeroCoords.y;
+    var currentHeroX = currentHeroCoords.x;
+    var currentHeroY = currentHeroCoords.y;
 
-    const hero = grid[currentHeroY][currentHeroX];
+    var hero = grid[currentHeroY][currentHeroX];
     grid[currentHeroY][currentHeroX] = "Empty";
 
     if (grid[y][x] === "Sword") {
       hero.damage = hero.damage * 2;
+
+      var inventory = document.querySelector(".inventory");
+
+      var newSword = document.createElement("div");
+      newSword.classList.add("tile", "tileSW");
+      inventory.appendChild(newSword);
     }
 
     if (grid[y][x] === "Flask") {
@@ -213,8 +132,8 @@ function rougeGame() {
   }
 
   function makePlayerTurn(key) {
-    let currentHeroX = currentHeroCoords.x;
-    let currentHeroY = currentHeroCoords.y;
+    var currentHeroX = currentHeroCoords.x;
+    var currentHeroY = currentHeroCoords.y;
 
     switch (key) {
       case "w":
@@ -250,8 +169,8 @@ function rougeGame() {
         break;
 
       case " ":
-        for (let i = currentHeroY - 1; i < currentHeroY + 2; i++) {
-          for (let j = currentHeroX - 1; j < currentHeroX + 2; j++) {
+        for (var i = currentHeroY - 1; i < currentHeroY + 2; i++) {
+          for (var j = currentHeroX - 1; j < currentHeroX + 2; j++) {
             if (
               i < 0 ||
               j < 0 ||
@@ -263,7 +182,7 @@ function rougeGame() {
 
             if (typeof grid[i][j] === "object") {
               if (grid[i][j].type === "enemy") {
-                let hero = grid[currentHeroY][currentHeroX];
+                var hero = grid[currentHeroY][currentHeroX];
                 grid[i][j].currentHealth =
                   grid[i][j].currentHealth - hero.damage;
 
@@ -281,16 +200,16 @@ function rougeGame() {
     renderField();
   }
 
-  function makeEnemiesTurn() {
-    for (let i = 0; i < currentEnemiesCoords.length; i++) {}
-  }
+  // function makeEnemiesTurn() {
+  //   for (var i = 0; i < currentEnemiesCoords.length; i++) {}
+  // }
 
   function renderField() {
     fieldContainer.textContent = "";
 
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWWidth; j++) {
-        const currentTile = document.createElement("div");
+    for (var i = 0; i < gameFieldHeight; i++) {
+      for (var j = 0; j < gameFieldWWidth; j++) {
+        var currentTile = document.createElement("div");
         if (grid[i][j] === "Empty") {
           currentTile.classList.add("tile");
         } else if (grid[i][j] === "Wall") {
@@ -301,13 +220,13 @@ function rougeGame() {
           currentTile.classList.add("tile", "tileHP");
         } else if (typeof grid[i][j] === "object") {
           if (grid[i][j].type === "enemy") {
-            const enemy = grid[i][j];
+            var enemy = grid[i][j];
             currentTile.classList.add("tile", "tileE");
 
-            const health = document.createElement("div");
+            var health = document.createElement("div");
             health.classList.add("health");
 
-            const healthPercentage = Math.floor(
+            var healthPercentage = Math.floor(
               (enemy.currentHealth / enemy.maxHealth) * 100
             );
             health.style.setProperty(
@@ -319,13 +238,13 @@ function rougeGame() {
           }
 
           if (grid[i][j].type === "hero") {
-            const hero = grid[i][j];
+            var hero = grid[i][j];
             currentTile.classList.add("tile", "tileP");
 
-            const health = document.createElement("div");
+            var health = document.createElement("div");
             health.classList.add("health");
 
-            const healthPercentage = Math.floor(
+            var healthPercentage = Math.floor(
               (hero.currentHealth / hero.maxHealth) * 100
             );
             health.style.setProperty(
@@ -345,9 +264,5 @@ function rougeGame() {
   return { initGameGrid };
 }
 
-const game = rougeGame();
+var game = rougeGame();
 game.initGameGrid();
-
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max + 1 - min)) + min;
-}

@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+h1 {
+  font-family: "Playfair Display";
+  font-size: 30px;
+  padding: 10px 0px;
+  margin: 0px;
+}
+
+.field-box {
+  border: 2px solid #d0d0d0;
+  float: left;
+}
+
+.field {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(40, 50px);
+  grid-template-rows: repeat(24, 50px);
+}
+
+.field .tile {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  background-size: 100%;
+  background-image: url(images/tile-.png);
+  z-index: 5;
+}
+
+.field .tileW {
+  background-image: url(images/tile-W.png);
+}
+
+.field .tileE {
+  background-image: url(images/tile-E.png);
+  z-index: 10;
+}
+
+.field .tileP {
+  background-image: url(images/tile-P.png);
+  z-index: 10;
+}
+
+.field .tileHP {
+  background-image: url(images/tile-HP.png);
+  z-index: 9;
+}
+
+.field .tileSW {
+  background-image: url(images/tile-SW.png);
+  z-index: 9;
+}
+
+.field .tile .health {
+  background-color: darkred;
+  z-index: 11;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 8px;
+  width: 50px;
+
+  --health: 100%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    top: 2px;
+    left: 2px;
+    background-color: red;
+    width: max(calc(var(--health) - 4px), 1px);
+  }
+}
+
+.field .tileP .health {
+  background-color: rgb(0, 128, 0);
+  z-index: 11;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 8px;
+  width: 50px;
+
+  --health: 100%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    top: 2px;
+    left: 2px;
+    background-color: rgb(0, 255, 0);
+    width: max(calc(var(--health) - 4px), 1px);
+  }
+}
+
+.inventory-box {
+  border: 2px solid #d0d0d0;
+  float: left;
+}
+
+.inventory {
+  position: relative;
+  width: 800px;
+  height: 48px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+
+  .tileSW {
+    background-image: url(images/tile-SW.png);
+    background-position: center;
+    background-size: cover;
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.cl {
+  clear: both;
+  display: block;
+}
