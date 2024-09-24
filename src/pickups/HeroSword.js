@@ -1,5 +1,5 @@
 function HeroSword(grid) {
-  var DAMAGE_BONUS = 5;
+  var DAMAGE_BONUS = 4;
 
   function addSword() {
     var heroCoords = getHeroCoords(grid);

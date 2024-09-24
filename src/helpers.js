@@ -10,17 +10,20 @@ function getHeroCoords(grid) {
   }
 }
 
-function getEnemiesCoords(grid) {
-  var currentEnemiesCoords = [];
+function getEnemies(grid) {
+  var enemies = [];
+
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[0].length; j++) {
       if (typeof grid[i][j] === "object") {
         if (grid[i][j].type === "enemy") {
-          currentEnemiesCoords.push({ x: j, y: i });
+          enemies.push(grid[i][j]);
         }
       }
     }
   }
+
+  return enemies;
 }
 
 function getRandomNumber(min, max) {
