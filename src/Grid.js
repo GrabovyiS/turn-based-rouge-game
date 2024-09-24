@@ -84,8 +84,6 @@ function Grid(gameFieldWidth, gameFieldHeight) {
   }
 
   function isReachable(topLeftRoomX, topLeftRoomY, roomWidth, roomHeight) {
-    console.log("this room:");
-    console.log({ topLeftRoomX, topLeftRoomY, roomWidth, roomHeight });
     // Avoid out of bounds
     let startX;
     let endX;
@@ -112,7 +110,6 @@ function Grid(gameFieldWidth, gameFieldHeight) {
     }
 
     if (topLeftRoomY + roomHeight > gameFieldHeight - 1) {
-      console.log("too big, gotta make it smaller", topLeftRoomY, roomHeight);
       endY = topLeftRoomY + roomHeight - 1;
     } else {
       endY = topLeftRoomY + roomHeight;
@@ -120,9 +117,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
 
     // Check if connects to an empty square
     for (var i = startY; i <= endY; i++) {
-      console.log({ startY, endY });
       for (var j = startX; j <= endX; j++) {
-        console.log(i, j);
         if (grid[i][j] === "Empty") {
           return true;
         }

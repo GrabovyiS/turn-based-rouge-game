@@ -1,10 +1,10 @@
-function createHero(grid, maxHealth) {
+function Hero(grid, maxHealth, baseDamage) {
   var currentHealth = maxHealth;
-  var type = 'hero';
+  var damage = baseDamage;
+  var type = "hero";
+  var styleClass = "tileP";
 
-  makeMove() {
+  function makeMove() {}
 
-  }
-  
-  return {type, currentHealth, maxHealth, }
+  return { type, currentHealth, maxHealth, baseDamage, styleClass, damage };
 }

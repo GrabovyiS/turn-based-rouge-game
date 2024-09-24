@@ -1,7 +1,5 @@
-// W means wall
-
 function rougeGame() {
-  var gameFieldWWidth = 40;
+  var gameFieldWidth = 40;
   var gameFieldHeight = 24;
   var grid;
 
@@ -13,53 +11,20 @@ function rougeGame() {
   var fieldContainer = document.querySelector(".field");
 
   function initGameGrid() {
-    grid = Grid(gameFieldWWidth, gameFieldHeight);
+    grid = Grid(gameFieldWidth, gameFieldHeight);
 
-    createRandomlyPlacedEntity(2, "Sword");
-    createRandomlyPlacedEntity(10, "Flask");
+    createRandomlyPlacedEntities(grid, 2, HeroSword);
+    createRandomlyPlacedEntities(grid, 10, HeroFlask);
 
-    createRandomlyPlacedEntity(10, {
-      type: "enemy",
-      currentHealth: 10,
-      maxHealth: 10,
-    });
+    createRandomlyPlacedEntities(grid, 10, Enemy, 10, 5);
     currentEnemiesCoords = getEnemiesCoords(grid);
 
-    createRandomlyPlacedEntity(1, {
-      type: "hero",
-      currentHealth: 100,
-      maxHealth: 100,
-      damage: 3,
-    });
+    createRandomlyPlacedEntities(grid, 1, Hero, 100, 5);
     currentHeroCoords = getHeroCoords(grid);
 
     setUpEventListeners();
 
     renderField();
-  }
-
-  function getRandomEmptySpace() {
-    var randomX = getRandomNumber(0, gameFieldWWidth - 1);
-    var randomY = getRandomNumber(0, gameFieldHeight - 1);
-
-    while (grid[randomY][randomX] !== "Empty") {
-      randomX = getRandomNumber(0, gameFieldWWidth - 1);
-      randomY = getRandomNumber(0, gameFieldHeight - 1);
-    }
-
-    return [randomX, randomY];
-  }
-
-  function createRandomlyPlacedEntity(count, entityInput) {
-    for (var i = 0; i < count; i++) {
-      var entityCopy = structuredClone(entityInput);
-
-      var emptySquareCoords = getRandomEmptySpace();
-      var emptySquareX = emptySquareCoords[0];
-      var emptySquareY = emptySquareCoords[1];
-
-      grid[emptySquareY][emptySquareX] = entityCopy;
-    }
   }
 
   function setUpEventListeners() {
@@ -78,6 +43,7 @@ function rougeGame() {
         return;
       }
 
+      const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
       makePlayerTurn(e.key);
 
       // and wait for it
@@ -86,7 +52,7 @@ function rougeGame() {
   }
 
   function heroCanMakeMoveThere(x, y) {
-    if (x >= gameFieldWWidth || y >= gameFieldHeight) {
+    if (x >= gameFieldWidth || y >= gameFieldHeight) {
       return false;
     }
 
@@ -107,25 +73,14 @@ function rougeGame() {
     var currentHeroX = currentHeroCoords.x;
     var currentHeroY = currentHeroCoords.y;
 
+    if (typeof grid[y][x] === "object") {
+      if (grid[y][x].type === "heroPickUp") {
+        grid[y][x].effect();
+      }
+    }
+
     var hero = grid[currentHeroY][currentHeroX];
     grid[currentHeroY][currentHeroX] = "Empty";
-
-    if (grid[y][x] === "Sword") {
-      hero.damage = hero.damage * 2;
-
-      var inventory = document.querySelector(".inventory");
-
-      var newSword = document.createElement("div");
-      newSword.classList.add("tile", "tileSW");
-      inventory.appendChild(newSword);
-    }
-
-    if (grid[y][x] === "Flask") {
-      hero.currentHealth =
-        hero.currentHealth + 10 > hero.maxHealth
-          ? hero.maxHealth
-          : hero.currentHealth + 10;
-    }
 
     grid[y][x] = hero;
     currentHeroCoords = { x, y };
@@ -171,12 +126,7 @@ function rougeGame() {
       case " ":
         for (var i = currentHeroY - 1; i < currentHeroY + 2; i++) {
           for (var j = currentHeroX - 1; j < currentHeroX + 2; j++) {
-            if (
-              i < 0 ||
-              j < 0 ||
-              i >= gameFieldHeight ||
-              j >= gameFieldWWidth
-            ) {
+            if (i < 0 || j < 0 || i >= gameFieldHeight || j >= gameFieldWidth) {
               continue;
             }
 
@@ -185,6 +135,9 @@ function rougeGame() {
                 var hero = grid[currentHeroY][currentHeroX];
                 grid[i][j].currentHealth =
                   grid[i][j].currentHealth - hero.damage;
+
+                console.log(grid[i][j]);
+                console.log("hit");
 
                 if (grid[i][j].currentHealth <= 0) {
                   grid[i][j] = "Empty";
@@ -208,7 +161,7 @@ function rougeGame() {
     fieldContainer.textContent = "";
 
     for (var i = 0; i < gameFieldHeight; i++) {
-      for (var j = 0; j < gameFieldWWidth; j++) {
+      for (var j = 0; j < gameFieldWidth; j++) {
         var currentTile = document.createElement("div");
         if (grid[i][j] === "Empty") {
           currentTile.classList.add("tile");
@@ -253,6 +206,10 @@ function rougeGame() {
             );
 
             currentTile.appendChild(health);
+          }
+
+          if (grid[i][j].type === "heroPickUp") {
+            currentTile.classList.add("tile", grid[i][j].styleClass);
           }
         }
 
