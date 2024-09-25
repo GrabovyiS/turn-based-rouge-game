@@ -5,7 +5,7 @@ function rougeGame() {
 
   var enemies;
 
-  var isPlayersTurn = true;
+  var isPlayersTurn;
 
   var fieldContainer = document.querySelector(".field");
 
@@ -16,59 +16,90 @@ function rougeGame() {
     createRandomlyPlacedEntities(grid, 10, HeroFlask);
     createRandomlyPlacedEntities(grid, 4, HeroTriggeredBomb);
 
-    createRandomlyPlacedEntities(grid, 1, MeleeBoss, 100, 10);
-    createRandomlyPlacedEntities(grid, 10, MeleeEnemy, 10, 5);
+    createRandomlyPlacedEntities(grid, 0, MeleeBoss, 100, 10);
+    createRandomlyPlacedEntities(grid, 1, MeleeEnemy, 10, 5);
     enemies = getEnemies(grid);
 
     createRandomlyPlacedEntities(grid, 1, Hero, 100, 3);
 
     setUpEventListeners();
 
-    console.log(grid);
+    renderField();
+
+    isPlayersTurn = true;
+  }
+
+  function showIntroductionOverlay() {
+    isPlayersTurn = false;
+
+    var overlay = introductionOverlay(() => {
+      overlay.remove();
+      isPlayersTurn = true;
+    });
+    fieldContainer.appendChild(overlay);
+  }
+
+  function listenToPlayerInput(e) {
+    if (!isPlayersTurn) {
+      return;
+    }
+
+    if (
+      e.code !== "KeyW" &&
+      e.code !== "KeyA" &&
+      e.code !== "KeyS" &&
+      e.code !== "KeyD" &&
+      e.code !== "Space"
+    ) {
+      return;
+    }
+
+    const currentHeroCoords = getHeroCoords(grid);
+    const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
+
+    if (hero.currentHealth <= 0) {
+      showDefeatScreen();
+      isPlayersTurn = false;
+      return;
+    }
+
+    if (hero.canMakeTurn(e.code)) {
+      hero.makeTurn(e.code);
+    } else {
+      return;
+    }
+
+    isPlayersTurn = false;
 
     renderField();
+
+    clearDeadEnemies();
+    if (enemies.length === 0) {
+      showVictoryScreen();
+      return;
+    }
+
+    // and wait for it
+    setTimeout(() => {
+      makeEnemiesTurn();
+      renderField();
+    }, 30);
   }
 
   function setUpEventListeners() {
-    window.addEventListener("keydown", (e) => {
-      if (!isPlayersTurn) {
-        return;
-      }
+    // To eliminate duplicate listeners on restarts
+    window.removeEventListener("keydown", listenToPlayerInput);
+    window.addEventListener("keydown", listenToPlayerInput);
+  }
 
-      if (
-        e.code !== "KeyW" &&
-        e.code !== "KeyA" &&
-        e.code !== "KeyS" &&
-        e.code !== "KeyD" &&
-        e.code !== "Space"
-      ) {
-        return;
-      }
+  function showVictoryScreen() {
+    var overlay = victoryOverlay(initGameGrid);
+    fieldContainer.appendChild(overlay);
+  }
 
-      const currentHeroCoords = getHeroCoords(grid);
-      const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
-
-      if (hero.canMakeTurn(e.code)) {
-        hero.makeTurn(e.code);
-      } else {
-        return;
-      }
-
-      isPlayersTurn = false;
-
-      renderField();
-
-      clearDeadEnemies();
-      if (enemies.length === 0) {
-        // show victory screen
-      }
-
-      // and wait for it
-      setTimeout(() => {
-        makeEnemiesTurn();
-        renderField();
-      }, 30);
-    });
+  function showDefeatScreen() {
+    var overlay = defeatOverlay(initGameGrid);
+    fieldContainer.appendChild(overlay);
   }
 
   function clearDeadEnemies() {
@@ -162,8 +193,10 @@ function rougeGame() {
     }
   }
 
-  return { initGameGrid };
+  return { initGameGrid, showIntroductionOverlay };
 }
 
 var game = rougeGame();
+
 game.initGameGrid();
+game.showIntroductionOverlay();
