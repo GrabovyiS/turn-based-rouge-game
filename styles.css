@@ -49,6 +49,11 @@ h1 {
   z-index: 10;
 }
 
+.field .tileB {
+  background-image: url(images/tile-B.png);
+  z-index: 10;
+}
+
 .field .tileP {
   background-image: url(images/tile-P.png);
   z-index: 10;

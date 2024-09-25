@@ -13,6 +13,7 @@ function rougeGame() {
     createRandomlyPlacedEntities(grid, 2, HeroSword);
     createRandomlyPlacedEntities(grid, 10, HeroFlask);
 
+    createRandomlyPlacedEntities(grid, 1, MeleeBoss, 100, 10);
     createRandomlyPlacedEntities(grid, 10, MeleeEnemy, 10, 5);
     enemies = getEnemies(grid);
 
@@ -42,13 +43,18 @@ function rougeGame() {
       const currentHeroCoords = getHeroCoords(grid);
       const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
       hero.makeTurn(e.code);
+      renderField();
 
       clearDeadEnemies();
+      if (enemies.length === 0) {
+        // show victory screen
+      }
 
       // and wait for it
-      makeEnemiesTurn();
-
-      renderField();
+      setTimeout(() => {
+        makeEnemiesTurn();
+        renderField();
+      }, 35);
     });
   }
 
@@ -62,9 +68,15 @@ function rougeGame() {
   }
 
   function makeEnemiesTurn() {
-    for (var i = 0; i < enemies.length; i++) {
-      enemies[i].makeTurn();
-    }
+    var timeOffset = 0;
+    enemies.forEach((enemy) => {
+      setTimeout(() => {
+        enemy.makeTurn();
+        renderField();
+      }, timeOffset);
+
+      timeOffset += 30;
+    });
   }
 
   function renderField() {
@@ -85,6 +97,10 @@ function rougeGame() {
           if (grid[i][j].type === "enemy") {
             var enemy = grid[i][j];
             currentTile.classList.add("tile", "tileE");
+
+            if (grid[i][j].name === "meleeBoss") {
+              currentTile.classList.add("tileB");
+            }
 
             var health = document.createElement("div");
             health.classList.add("health");

@@ -138,16 +138,6 @@ function MeleeEnemy(grid, maxHealth, damage) {
     return false;
   }
 
-  function getOwnCoords() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWidth; j++) {
-        if (grid[i][j] === this) {
-          return { x: j, y: i };
-        }
-      }
-    }
-  }
-
   function move(oldX, oldY, newX, newY) {
     var enemy = grid[oldY][oldX];
     grid[oldY][oldX] = "Empty";
@@ -166,10 +156,9 @@ function MeleeEnemy(grid, maxHealth, damage) {
     }
   }
 
-  const meleeEnemy = Enemy("meleeEnemy", maxHealth, damage, makeTurn);
+  const meleeEnemy = Enemy(grid, "meleeEnemy", maxHealth, damage, makeTurn);
   meleeEnemy.styleClass = "tileE";
   meleeEnemy.move = move;
-  meleeEnemy.getOwnCoords = getOwnCoords;
   meleeEnemy.direction = direction;
   meleeEnemy.currentDirection = currentDirection;
 
