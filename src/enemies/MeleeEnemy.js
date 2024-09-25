@@ -48,8 +48,10 @@ function MeleeEnemy(grid, options) {
           this.currentDirection = "left";
           move(ownX, ownY, ownX - 1, ownY);
         } else if (canGoThere(ownX, ownY + 1)) {
+          this.currentDirection = "bottom";
           move(ownX, ownY, ownX, ownY + 1);
         } else if (canGoThere(ownX, ownY - 1)) {
+          this.currentDirection = "top";
           move(ownX, ownY, ownX, ownY - 1);
         }
 
@@ -63,9 +65,45 @@ function MeleeEnemy(grid, options) {
           this.currentDirection = "right";
           move(ownX, ownY, ownX + 1, ownY);
         } else if (canGoThere(ownX, ownY + 1)) {
+          this.currentDirection = "bottom";
           move(ownX, ownY, ownX, ownY + 1);
         } else if (canGoThere(ownX, ownY - 1)) {
+          this.currentDirection = "top";
           move(ownX, ownY, ownX, ownY - 1);
+        }
+
+        return;
+      }
+
+      if (this.currentDirection === "top") {
+        if (canGoThere(ownX - 1, ownY)) {
+          this.currentDirection = "left";
+          move(ownX, ownY, ownX - 1, ownY);
+        } else if (canGoThere(ownX + 1, ownY)) {
+          this.currentDirection = "right";
+          move(ownX, ownY, ownX + 1, ownY);
+        } else if (canGoThere(ownX, ownY + 1)) {
+          move(ownX, ownY, ownX, ownY + 1);
+        } else if (canGoThere(ownX, ownY - 1)) {
+          this.currentDirection = "bottom";
+          move(ownX, ownY, ownX, ownY - 1);
+        }
+
+        return;
+      }
+
+      if (this.currentDirection === "bottom") {
+        if (canGoThere(ownX - 1, ownY)) {
+          this.currentDirection = "left";
+          move(ownX, ownY, ownX - 1, ownY);
+        } else if (canGoThere(ownX + 1, ownY)) {
+          this.currentDirection = "right";
+          move(ownX, ownY, ownX + 1, ownY);
+        } else if (canGoThere(ownX, ownY - 1)) {
+          move(ownX, ownY, ownX, ownY - 1);
+        } else if (canGoThere(ownX, ownY + 1)) {
+          this.currentDirection = "top";
+          move(ownX, ownY, ownX, ownY + 1);
         }
 
         return;
@@ -80,8 +118,10 @@ function MeleeEnemy(grid, options) {
           this.currentDirection = "bottom";
           move(ownX, ownY, ownX, ownY + 1);
         } else if (canGoThere(ownX - 1, ownY)) {
+          this.currentDirection = "left";
           move(ownX, ownY, ownX - 1, ownY);
         } else if (canGoThere(ownX + 1, ownY)) {
+          this.currentDirection = "right";
           move(ownX, ownY, ownX + 1, ownY);
         }
 
@@ -95,9 +135,45 @@ function MeleeEnemy(grid, options) {
           this.currentDirection = "top";
           move(ownX, ownY, ownX, ownY - 1);
         } else if (canGoThere(ownX - 1, ownY)) {
+          this.currentDirection = "left";
           move(ownX, ownY, ownX - 1, ownY);
         } else if (canGoThere(ownX + 1, ownY)) {
+          this.currentDirection = "right";
           move(ownX, ownY, ownX + 1, ownY);
+        }
+
+        return;
+      }
+
+      if (this.currentDirection === "left") {
+        if (canGoThere(ownX, ownY + 1)) {
+          this.currentDirection = "bottom";
+          move(ownX, ownY, ownX, ownY + 1);
+        } else if (canGoThere(ownX, ownY - 1)) {
+          this.currentDirection = "top";
+          move(ownX, ownY, ownX, ownY - 1);
+        } else if (canGoThere(ownX - 1, ownY)) {
+          move(ownX, ownY, ownX - 1, ownY);
+        } else if (canGoThere(ownX + 1, ownY)) {
+          this.currentDirection = "right";
+          move(ownX, ownY, ownX + 1, ownY);
+        }
+
+        return;
+      }
+
+      if (this.currentDirection === "right") {
+        if (canGoThere(ownX, ownY + 1)) {
+          this.currentDirection = "bottom";
+          move(ownX, ownY, ownX, ownY + 1);
+        } else if (canGoThere(ownX, ownY - 1)) {
+          this.currentDirection = "top";
+          move(ownX, ownY, ownX, ownY - 1);
+        } else if (canGoThere(ownX + 1, ownY)) {
+          move(ownX, ownY, ownX + 1, ownY);
+        } else if (canGoThere(ownX - 1, ownY)) {
+          this.currentDirection = "left";
+          move(ownX, ownY, ownX - 1, ownY);
         }
 
         return;

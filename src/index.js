@@ -17,7 +17,7 @@ function rougeGame() {
     createRandomlyPlacedEntities(grid, 4, HeroTriggeredBomb);
 
     var bossOptions = { maxHealth: 100, damage: 10 };
-    createRandomlyPlacedEntities(grid, 0, MeleeBoss, bossOptions);
+    createRandomlyPlacedEntities(grid, 1, MeleeBoss, bossOptions);
     var enemyOptions = { maxHealth: 10, damage: 3 };
     createRandomlyPlacedEntities(grid, 1, MeleeEnemy, enemyOptions);
     enemies = getEnemies(grid);
