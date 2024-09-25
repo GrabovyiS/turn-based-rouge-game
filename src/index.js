@@ -19,7 +19,7 @@ function rougeGame() {
     var bossOptions = { maxHealth: 100, damage: 10 };
     createRandomlyPlacedEntities(grid, 1, MeleeBoss, bossOptions);
     var enemyOptions = { maxHealth: 10, damage: 3 };
-    createRandomlyPlacedEntities(grid, 1, MeleeEnemy, enemyOptions);
+    createRandomlyPlacedEntities(grid, 10, MeleeEnemy, enemyOptions);
     enemies = getEnemies(grid);
 
     var heroOptions = { maxHealth: 100, baseDamage: 3 };
@@ -86,7 +86,7 @@ function rougeGame() {
     setTimeout(() => {
       makeEnemiesTurn();
       render();
-    }, 30);
+    }, 25);
   }
 
   function setUpEventListeners() {
@@ -122,7 +122,7 @@ function rougeGame() {
         render();
       }, timeOffset);
 
-      timeOffset += 30;
+      timeOffset += 25;
     });
 
     // Allow player to make a next turn when all the enemies' turns are done
