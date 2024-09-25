@@ -142,17 +142,7 @@ function rougeGame() {
         if (grid[i][j].type === "enemy") {
           var enemy = grid[i][j];
 
-          var health = document.createElement("div");
-          health.classList.add("health");
-
-          var healthPercentage = Math.floor(
-            (enemy.currentHealth / enemy.maxHealth) * 100
-          );
-          health.style.setProperty(
-            "--health",
-            `${healthPercentage > 100 ? 100 : healthPercentage}%`
-          );
-
+          var health = createCharacterHealthElement(enemy);
           currentTile.appendChild(health);
         }
 
@@ -160,17 +150,7 @@ function rougeGame() {
           var hero = grid[i][j];
           renderInventory(hero);
 
-          var health = document.createElement("div");
-          health.classList.add("health");
-
-          var healthPercentage = Math.floor(
-            (hero.currentHealth / hero.maxHealth) * 100
-          );
-          health.style.setProperty(
-            "--health",
-            `${healthPercentage > 100 ? 100 : healthPercentage}%`
-          );
-
+          var health = createCharacterHealthElement(hero);
           currentTile.appendChild(health);
         }
 

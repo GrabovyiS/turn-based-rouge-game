@@ -89,3 +89,18 @@ function renderInventory(hero) {
     inventory.appendChild(itemElement);
   }
 }
+
+function createCharacterHealthElement(character) {
+  var health = document.createElement("div");
+  health.classList.add("health");
+
+  var healthPercentage = Math.floor(
+    (character.currentHealth / character.maxHealth) * 100
+  );
+  health.style.setProperty(
+    "--health",
+    `${healthPercentage > 100 ? 100 : healthPercentage}%`
+  );
+
+  return health;
+}
