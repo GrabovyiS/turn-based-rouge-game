@@ -55,7 +55,7 @@ function MeleeBoss(grid, maxHealth, damage) {
       }
     }
 
-    if (grid[y][x] === "wall") {
+    if (isWallTile(grid[y][x])) {
       return false;
     }
 
@@ -81,7 +81,7 @@ function MeleeBoss(grid, maxHealth, damage) {
       grid[oldY][oldX] = grid[oldY][oldX].tileBehind;
       enemy.tileBehind = null;
     } else {
-      grid[oldY][oldX] = "empty";
+      grid[oldY][oldX] = EmptyTile();
     }
 
     // 'hide' pickups instead of destroying them

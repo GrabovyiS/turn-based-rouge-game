@@ -37,7 +37,7 @@ function getRandomEmptySpace(grid) {
   var randomX = getRandomNumber(0, gameFieldWidth - 1);
   var randomY = getRandomNumber(0, gameFieldHeight - 1);
 
-  while (grid[randomY][randomX] !== "empty") {
+  while (!isEmptyTile(grid[randomY][randomX])) {
     randomX = getRandomNumber(0, gameFieldWidth - 1);
     randomY = getRandomNumber(0, gameFieldHeight - 1);
   }
@@ -58,4 +58,20 @@ function createRandomlyPlacedEntities(
 
     grid[emptySquareY][emptySquareX] = factoryCallback(grid, ...callbackArgs);
   }
+}
+
+function isWallTile(gridTile) {
+  if (gridTile.type === "tile" && gridTile.tileType === "wall") {
+    return true;
+  }
+
+  return false;
+}
+
+function isEmptyTile(gridTile) {
+  if (gridTile.type === "tile" && gridTile.tileType === "empty") {
+    return true;
+  }
+
+  return false;
 }

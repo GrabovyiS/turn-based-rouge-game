@@ -17,7 +17,7 @@ function HeroTriggeredBomb(grid) {
             grid[i][j].currentHealth -= DAMAGE_VALUE;
 
             if (grid[i][j].type === "enemy" && grid[i][j].currentHealth <= 0) {
-              grid[i][j] = "empty";
+              grid[i][j] = EmptyTile();
             }
           }
         }

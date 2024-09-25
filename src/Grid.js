@@ -4,7 +4,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
   for (var i = 0; i < gameFieldHeight; i++) {
     grid.push([]);
     for (var j = 0; j < gameFieldWidth; j++) {
-      grid[i].push("wall");
+      grid[i].push(WallTile());
     }
   }
 
@@ -28,7 +28,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
       horizontalIndexes.push(horizontalCorridorIndex);
 
       for (var j = 0; j < gameFieldWidth; j++) {
-        grid[horizontalCorridorIndex][j] = "empty";
+        grid[horizontalCorridorIndex][j] = EmptyTile();
       }
     }
 
@@ -44,7 +44,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
       verticalIndexes.push(verticalCorridorIndex);
 
       for (var j = 0; j < gameFieldHeight; j++) {
-        grid[j][verticalCorridorIndex] = "empty";
+        grid[j][verticalCorridorIndex] = EmptyTile();
       }
     }
   }
@@ -63,7 +63,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
       );
 
       while (
-        grid[topLeftRoomY][topLeftRoomX] !== "wall" ||
+        !isWallTile(grid[topLeftRoomY][topLeftRoomX]) ||
         !isReachable(
           topLeftRoomX,
           topLeftRoomY,
@@ -77,7 +77,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
 
       for (var k = topLeftRoomY; k < topLeftRoomY + currentRoomHeight; k++) {
         for (var j = topLeftRoomX; j < topLeftRoomX + currentRoomWidth; j++) {
-          grid[k][j] = "empty";
+          grid[k][j] = EmptyTile();
         }
       }
     }
@@ -118,7 +118,7 @@ function Grid(gameFieldWidth, gameFieldHeight) {
     // Check if connects to an empty square
     for (var i = startY; i <= endY; i++) {
       for (var j = startX; j <= endX; j++) {
-        if (grid[i][j] === "empty") {
+        if (isEmptyTile(grid[i][j])) {
           return true;
         }
       }

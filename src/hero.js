@@ -95,7 +95,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
                 if (grid[i][j].currentHealth <= 0) {
                   // this should check if this cell object has a hidden
                   // and if it does, show hidden stuff instead (the same for moving enemy);
-                  grid[i][j] = "empty";
+                  grid[i][j] = EmptyTile();
                 }
               }
             }
@@ -117,7 +117,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
     }
 
     var hero = grid[currentHeroY][currentHeroX];
-    grid[currentHeroY][currentHeroX] = "empty";
+    grid[currentHeroY][currentHeroX] = EmptyTile();
 
     grid[newY][newX] = hero;
   }
@@ -133,7 +133,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
       }
     }
 
-    if (grid[y][x] === "wall") {
+    if (isWallTile(grid[y][x])) {
       return false;
     }
 

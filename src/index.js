@@ -134,58 +134,43 @@ function rougeGame() {
     for (var i = 0; i < gameFieldHeight; i++) {
       for (var j = 0; j < gameFieldWidth; j++) {
         var currentTile = document.createElement("div");
-        if (grid[i][j] === "empty") {
-          currentTile.classList.add("tile");
-        } else if (grid[i][j] === "wall") {
-          currentTile.classList.add("tile", "tileW");
-        } else if (grid[i][j] === "Sword") {
-          currentTile.classList.add("tile", "tileSW");
-        } else if (grid[i][j] === "Flask") {
-          currentTile.classList.add("tile", "tileHP");
-        } else if (typeof grid[i][j] === "object") {
-          if (grid[i][j].type === "enemy") {
-            var enemy = grid[i][j];
-            currentTile.classList.add("tile", "tileE");
+        currentTile.classList.add("tile");
+        currentTile.classList.add(grid[i][j].styleClass);
 
-            if (grid[i][j].name === "meleeBoss") {
-              currentTile.classList.add("tileB");
-            }
+        currentTile.classList.add(grid[i][j].styleClass);
 
-            var health = document.createElement("div");
-            health.classList.add("health");
+        if (grid[i][j].type === "enemy") {
+          var enemy = grid[i][j];
 
-            var healthPercentage = Math.floor(
-              (enemy.currentHealth / enemy.maxHealth) * 100
-            );
-            health.style.setProperty(
-              "--health",
-              `${healthPercentage > 100 ? 100 : healthPercentage}%`
-            );
+          var health = document.createElement("div");
+          health.classList.add("health");
 
-            currentTile.appendChild(health);
-          }
+          var healthPercentage = Math.floor(
+            (enemy.currentHealth / enemy.maxHealth) * 100
+          );
+          health.style.setProperty(
+            "--health",
+            `${healthPercentage > 100 ? 100 : healthPercentage}%`
+          );
 
-          if (grid[i][j].type === "hero") {
-            var hero = grid[i][j];
-            currentTile.classList.add("tile", "tileP");
+          currentTile.appendChild(health);
+        }
 
-            var health = document.createElement("div");
-            health.classList.add("health");
+        if (grid[i][j].type === "hero") {
+          var hero = grid[i][j];
 
-            var healthPercentage = Math.floor(
-              (hero.currentHealth / hero.maxHealth) * 100
-            );
-            health.style.setProperty(
-              "--health",
-              `${healthPercentage > 100 ? 100 : healthPercentage}%`
-            );
+          var health = document.createElement("div");
+          health.classList.add("health");
 
-            currentTile.appendChild(health);
-          }
+          var healthPercentage = Math.floor(
+            (hero.currentHealth / hero.maxHealth) * 100
+          );
+          health.style.setProperty(
+            "--health",
+            `${healthPercentage > 100 ? 100 : healthPercentage}%`
+          );
 
-          if (grid[i][j].type === "heroPickUp") {
-            currentTile.classList.add("tile", grid[i][j].styleClass);
-          }
+          currentTile.appendChild(health);
         }
 
         fieldContainer.appendChild(currentTile);
