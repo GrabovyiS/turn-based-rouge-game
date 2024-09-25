@@ -5,6 +5,8 @@ function rougeGame() {
 
   var enemies;
 
+  var isPlayersTurn = true;
+
   var fieldContainer = document.querySelector(".field");
 
   function initGameGrid() {
@@ -29,9 +31,10 @@ function rougeGame() {
 
   function setUpEventListeners() {
     window.addEventListener("keydown", (e) => {
-      // if (!playersTurn) {
-      //   return;
-      // }
+      if (!isPlayersTurn) {
+        console.log("nah, haha");
+        return;
+      }
 
       if (
         e.code !== "KeyW" &&
@@ -46,6 +49,8 @@ function rougeGame() {
       const currentHeroCoords = getHeroCoords(grid);
       const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
       hero.makeTurn(e.code);
+      isPlayersTurn = false;
+
       renderField();
 
       clearDeadEnemies();
@@ -57,7 +62,7 @@ function rougeGame() {
       setTimeout(() => {
         makeEnemiesTurn();
         renderField();
-      }, 35);
+      }, 30);
     });
   }
 
@@ -80,6 +85,11 @@ function rougeGame() {
 
       timeOffset += 30;
     });
+
+    // Allow player to make a next turn when all the enemies' turns are done
+    setTimeout(() => {
+      isPlayersTurn = true;
+    }, timeOffset);
   }
 
   function renderField() {
