@@ -97,10 +97,15 @@ function createCharacterHealthElement(character) {
   var healthPercentage = Math.floor(
     (character.currentHealth / character.maxHealth) * 100
   );
-  health.style.setProperty(
-    "--health",
-    `${healthPercentage > 100 ? 100 : healthPercentage}%`
-  );
+
+  var resultingHealthPercentage;
+  if (healthPercentage > 100) {
+    resultingHealthPercentage = 100;
+  } else {
+    resultingHealthPercentage = healthPercentage;
+  }
+
+  health.style.setProperty("--health", String(resultingHealthPercentage) + "%");
 
   return health;
 }

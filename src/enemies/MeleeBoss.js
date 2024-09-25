@@ -100,9 +100,9 @@ function MeleeBoss(grid, options) {
 
   var meleeBoss = Enemy(grid, {
     name: "meleeBoss",
-    maxHealth,
-    damage,
-    makeTurn,
+    maxHealth: maxHealth,
+    damage: damage,
+    makeTurn: makeTurn,
   });
   meleeBoss.styleClass = "tileB";
   meleeBoss.move = move;

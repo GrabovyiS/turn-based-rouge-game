@@ -19,11 +19,11 @@ function Enemy(grid, options) {
 
   return {
     type: "enemy",
-    name,
-    maxHealth,
+    name: name,
+    maxHealth: maxHealth,
     currentHealth: maxHealth,
-    damage,
-    makeTurn,
-    getOwnCoords,
+    damage: damage,
+    makeTurn: makeTurn,
+    getOwnCoords: getOwnCoords,
   };
 }

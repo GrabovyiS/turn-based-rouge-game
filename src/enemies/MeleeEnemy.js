@@ -238,9 +238,9 @@ function MeleeEnemy(grid, options) {
 
   var meleeEnemy = Enemy(grid, {
     name: "meleeEnemy",
-    maxHealth,
-    damage,
-    makeTurn,
+    maxHealth: maxHealth,
+    damage: damage,
+    makeTurn: makeTurn,
   });
 
   meleeEnemy.styleClass = "tileE";

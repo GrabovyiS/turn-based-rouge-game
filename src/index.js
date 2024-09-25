@@ -162,7 +162,11 @@ function rougeGame() {
     }
   }
 
-  return { initGameGrid, showIntroductionOverlay, render };
+  return {
+    initGameGrid: initGameGrid,
+    showIntroductionOverlay: showIntroductionOverlay,
+    render: render,
+  };
 }
 
 var game = rougeGame();

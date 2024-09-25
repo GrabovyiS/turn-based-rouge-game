@@ -145,14 +145,14 @@ function Hero(grid, options) {
   }
 
   return {
-    type,
-    currentHealth,
-    maxHealth,
-    baseDamage,
-    styleClass,
-    damage,
-    inventory,
-    canMakeTurn,
-    makeTurn,
+    type: type,
+    currentHealth: currentHealth,
+    maxHealth: maxHealth,
+    baseDamage: baseDamage,
+    styleClass: styleClass,
+    damage: damage,
+    inventory: inventory,
+    canMakeTurn: canMakeTurn,
+    makeTurn: makeTurn,
   };
 }

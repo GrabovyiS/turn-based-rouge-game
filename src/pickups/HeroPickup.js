@@ -16,5 +16,12 @@ function HeroPickup(grid, options) {
     }
   }
 
-  return { grid, type: "heroPickUp", name, effect, styleClass, getOwnCoords };
+  return {
+    grid: grid,
+    type: "heroPickUp",
+    name: name,
+    effect: effect,
+    styleClass: styleClass,
+    getOwnCoords: getOwnCoords,
+  };
 }
