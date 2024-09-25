@@ -158,6 +158,7 @@ function rougeGame() {
 
         if (grid[i][j].type === "hero") {
           var hero = grid[i][j];
+          renderInventory(hero);
 
           var health = document.createElement("div");
           health.classList.add("health");

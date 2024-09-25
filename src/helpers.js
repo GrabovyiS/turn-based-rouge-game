@@ -75,3 +75,17 @@ function isEmptyTile(gridTile) {
 
   return false;
 }
+
+function renderInventory(hero) {
+  var inventory = document.querySelector(".inventory");
+  inventory.textContent = "";
+
+  for (let i = 0; i < hero.inventory.length; i++) {
+    var item = hero.inventory[i];
+
+    var itemElement = document.createElement("div");
+    itemElement.classList.add("tile", item.styleClass);
+
+    inventory.appendChild(itemElement);
+  }
+}

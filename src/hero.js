@@ -3,6 +3,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
   var damage = baseDamage;
   var type = "hero";
   var styleClass = "tileP";
+  var inventory = [];
 
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
@@ -147,6 +148,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
     baseDamage,
     styleClass,
     damage,
+    inventory,
     canMakeTurn,
     makeTurn,
   };
