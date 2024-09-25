@@ -79,41 +79,41 @@ h1 {
   height: 50px;
   position: relative;
   background-size: 100%;
-  background-image: url(images/tile-.png);
+  background-image: url(../images/tile-.png);
   z-index: 5;
 }
 
 .field .tileW {
-  background-image: url(images/tile-W.png);
+  background-image: url(../images/tile-W.png);
 }
 
 .field .tileE {
-  background-image: url(images/tile-E.png);
+  background-image: url(../images/tile-E.png);
   z-index: 10;
 }
 
 .field .tileB {
-  background-image: url(images/tile-B.png);
+  background-image: url(../images/tile-B.png);
   z-index: 10;
 }
 
 .field .tile-Bomb {
-  background-image: url(images/tile-Bomb.jpg);
+  background-image: url(../images/tile-Bomb.jpg);
   z-index: 10;
 }
 
 .field .tileP {
-  background-image: url(images/tile-P.png);
+  background-image: url(../images/tile-P.png);
   z-index: 10;
 }
 
 .field .tileHP {
-  background-image: url(images/tile-HP.png);
+  background-image: url(../images/tile-HP.png);
   z-index: 9;
 }
 
 .field .tileSW {
-  background-image: url(images/tile-SW.png);
+  background-image: url(../images/tile-SW.png);
   z-index: 9;
 }
 
@@ -175,7 +175,7 @@ h1 {
   padding: 8px;
 
   .tileSW {
-    background-image: url(images/tile-SW.png);
+    background-image: url(../images/tile-SW.png);
     background-position: center;
     background-size: cover;
     height: 32px;
