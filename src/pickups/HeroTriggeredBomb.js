@@ -6,8 +6,8 @@ function HeroTriggeredBomb(grid) {
   function explode() {
     var bombCoords = this.getOwnCoords();
 
-    for (let i = bombCoords.y - 1; i < bombCoords.y + 2; i++) {
-      for (let j = bombCoords.x - 1; j < bombCoords.x + 2; j++) {
+    for (var i = bombCoords.y - 1; i < bombCoords.y + 2; i++) {
+      for (var j = bombCoords.x - 1; j < bombCoords.x + 2; j++) {
         if (i < 0 || j < 0 || i >= gameFieldHeight || j >= gameFieldWidth) {
           continue;
         }

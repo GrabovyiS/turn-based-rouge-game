@@ -1,5 +1,5 @@
 function Grid(gameFieldWidth, gameFieldHeight) {
-  const grid = [];
+  var grid = [];
 
   for (var i = 0; i < gameFieldHeight; i++) {
     grid.push([]);
@@ -85,8 +85,8 @@ function Grid(gameFieldWidth, gameFieldHeight) {
 
   function isReachable(topLeftRoomX, topLeftRoomY, roomWidth, roomHeight) {
     // Avoid out of bounds
-    let startX;
-    let endX;
+    var startX;
+    var endX;
 
     if (topLeftRoomX - 1 < 0) {
       startX = topLeftRoomX;
@@ -100,8 +100,8 @@ function Grid(gameFieldWidth, gameFieldHeight) {
       endX = topLeftRoomX + roomWidth;
     }
 
-    let startY;
-    let endY;
+    var startY;
+    var endY;
 
     if (topLeftRoomY - 1 < 0) {
       startY = topLeftRoomY;

@@ -26,13 +26,13 @@ function MeleeEnemy(grid, maxHealth, damage) {
   }
 
   function makeTurn() {
-    const ownCoords = this.getOwnCoords();
-    const ownX = ownCoords.x;
-    const ownY = ownCoords.y;
-    const heroCoords = getHeroCoords(grid);
+    var ownCoords = this.getOwnCoords();
+    var ownX = ownCoords.x;
+    var ownY = ownCoords.y;
+    var heroCoords = getHeroCoords(grid);
 
     if (heroInRange(heroCoords, ownCoords)) {
-      const hero = grid[heroCoords.y][heroCoords.x];
+      var hero = grid[heroCoords.y][heroCoords.x];
       hero.currentHealth = hero.currentHealth - this.damage;
       return;
     }
@@ -125,8 +125,8 @@ function MeleeEnemy(grid, maxHealth, damage) {
   }
 
   function heroInRange(heroCoords, ownCoords) {
-    for (let i = heroCoords.y - 1; i < heroCoords.y + 2; i++) {
-      for (let j = heroCoords.x - 1; j < heroCoords.x + 2; j++) {
+    for (var i = heroCoords.y - 1; i < heroCoords.y + 2; i++) {
+      for (var j = heroCoords.x - 1; j < heroCoords.x + 2; j++) {
         if (i === ownCoords.y && j === ownCoords.x) {
           return true;
         }
@@ -157,7 +157,7 @@ function MeleeEnemy(grid, maxHealth, damage) {
     grid[newY][newX] = enemy;
   }
 
-  const meleeEnemy = Enemy(grid, "meleeEnemy", maxHealth, damage, makeTurn);
+  var meleeEnemy = Enemy(grid, "meleeEnemy", maxHealth, damage, makeTurn);
   meleeEnemy.styleClass = "tileE";
   meleeEnemy.move = move;
   meleeEnemy.direction = direction;

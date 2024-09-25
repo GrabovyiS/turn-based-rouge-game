@@ -54,8 +54,8 @@ function rougeGame() {
       return;
     }
 
-    const currentHeroCoords = getHeroCoords(grid);
-    const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
+    var currentHeroCoords = getHeroCoords(grid);
+    var hero = grid[currentHeroCoords.y][currentHeroCoords.x];
 
     if (hero.currentHealth <= 0) {
       showDefeatScreen();

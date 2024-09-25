@@ -3,13 +3,13 @@ function MeleeBoss(grid, maxHealth, damage) {
   var gameFieldWidth = grid[0].length;
 
   function makeTurn() {
-    const ownCoords = this.getOwnCoords();
-    const ownX = ownCoords.x;
-    const ownY = ownCoords.y;
-    const heroCoords = getHeroCoords(grid);
+    var ownCoords = this.getOwnCoords();
+    var ownX = ownCoords.x;
+    var ownY = ownCoords.y;
+    var heroCoords = getHeroCoords(grid);
 
     if (heroInRange(heroCoords, ownCoords)) {
-      const hero = grid[heroCoords.y][heroCoords.x];
+      var hero = grid[heroCoords.y][heroCoords.x];
       hero.currentHealth = hero.currentHealth - this.damage;
       return;
     }
@@ -63,8 +63,8 @@ function MeleeBoss(grid, maxHealth, damage) {
   }
 
   function heroInRange(heroCoords, ownCoords) {
-    for (let i = heroCoords.y - 1; i < heroCoords.y + 2; i++) {
-      for (let j = heroCoords.x - 1; j < heroCoords.x + 2; j++) {
+    for (var i = heroCoords.y - 1; i < heroCoords.y + 2; i++) {
+      for (var j = heroCoords.x - 1; j < heroCoords.x + 2; j++) {
         if (i === ownCoords.y && j === ownCoords.x) {
           return true;
         }
@@ -95,7 +95,7 @@ function MeleeBoss(grid, maxHealth, damage) {
     grid[newY][newX] = enemy;
   }
 
-  const meleeBoss = Enemy(grid, "meleeBoss", maxHealth, damage, makeTurn);
+  var meleeBoss = Enemy(grid, "meleeBoss", maxHealth, damage, makeTurn);
   meleeBoss.styleClass = "tileB";
   meleeBoss.move = move;
 

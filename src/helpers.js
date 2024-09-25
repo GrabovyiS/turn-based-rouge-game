@@ -1,6 +1,6 @@
 function getHeroCoords(grid) {
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
+  for (var i = 0; i < grid.length; i++) {
+    for (var j = 0; j < grid[0].length; j++) {
       if (typeof grid[i][j] === "object") {
         if (grid[i][j].type === "hero") {
           return { x: j, y: i };
@@ -13,8 +13,8 @@ function getHeroCoords(grid) {
 function getEnemies(grid) {
   var enemies = [];
 
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
+  for (var i = 0; i < grid.length; i++) {
+    for (var j = 0; j < grid[0].length; j++) {
       if (typeof grid[i][j] === "object") {
         if (grid[i][j].type === "enemy") {
           enemies.push(grid[i][j]);
@@ -80,7 +80,7 @@ function renderInventory(hero) {
   var inventory = document.querySelector(".inventory");
   inventory.textContent = "";
 
-  for (let i = 0; i < hero.inventory.length; i++) {
+  for (var i = 0; i < hero.inventory.length; i++) {
     var item = hero.inventory[i];
 
     var itemElement = document.createElement("div");
