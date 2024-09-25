@@ -1,10 +1,14 @@
-function HeroPickup(grid, name, effect, styleClass) {
+function HeroPickup(grid, options) {
+  var name = options.name;
+  var effect = options.effect;
+  var styleClass = options.styleClass;
+
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
 
   function getOwnCoords() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWidth; j++) {
+    for (var i = 0; i < gameFieldHeight; i++) {
+      for (var j = 0; j < gameFieldWidth; j++) {
         if (grid[i][j] === this) {
           return { x: j, y: i };
         }

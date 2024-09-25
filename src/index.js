@@ -16,11 +16,14 @@ function rougeGame() {
     createRandomlyPlacedEntities(grid, 10, HeroFlask);
     createRandomlyPlacedEntities(grid, 4, HeroTriggeredBomb);
 
-    createRandomlyPlacedEntities(grid, 0, MeleeBoss, 100, 10);
-    createRandomlyPlacedEntities(grid, 1, MeleeEnemy, 10, 5);
+    var bossOptions = { maxHealth: 100, damage: 10 };
+    createRandomlyPlacedEntities(grid, 0, MeleeBoss, bossOptions);
+    var enemyOptions = { maxHealth: 10, damage: 3 };
+    createRandomlyPlacedEntities(grid, 1, MeleeEnemy, enemyOptions);
     enemies = getEnemies(grid);
 
-    createRandomlyPlacedEntities(grid, 1, Hero, 100, 3);
+    var heroOptions = { maxHealth: 100, baseDamage: 3 };
+    createRandomlyPlacedEntities(grid, 1, Hero, heroOptions);
 
     setUpEventListeners();
 

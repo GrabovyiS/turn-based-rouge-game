@@ -49,14 +49,14 @@ function createRandomlyPlacedEntities(
   grid,
   count,
   factoryCallback,
-  ...callbackArgs
+  factoryOptions
 ) {
   for (var i = 0; i < count; i++) {
     var emptySquareCoords = getRandomEmptySpace(grid);
     var emptySquareX = emptySquareCoords[0];
     var emptySquareY = emptySquareCoords[1];
 
-    grid[emptySquareY][emptySquareX] = factoryCallback(grid, ...callbackArgs);
+    grid[emptySquareY][emptySquareX] = factoryCallback(grid, factoryOptions);
   }
 }
 

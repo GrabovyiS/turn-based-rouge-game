@@ -25,6 +25,10 @@ function HeroTriggeredBomb(grid) {
     }
   }
 
-  var flask = HeroPickup(grid, "bomb", explode, "tile-Bomb");
+  var flask = HeroPickup(grid, {
+    name: "bomb",
+    effect: explode,
+    styleClass: "tile-Bomb",
+  });
   return flask;
 }

@@ -1,10 +1,15 @@
-function Enemy(grid, name, maxHealth, damage, makeTurn) {
+function Enemy(grid, options) {
+  var maxHealth = options.maxHealth;
+  var damage = options.damage;
+  var name = options.name;
+  var makeTurn = options.makeTurn;
+
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
 
   function getOwnCoords() {
-    for (let i = 0; i < gameFieldHeight; i++) {
-      for (let j = 0; j < gameFieldWidth; j++) {
+    for (var i = 0; i < gameFieldHeight; i++) {
+      for (var j = 0; j < gameFieldWidth; j++) {
         if (grid[i][j] === this) {
           return { x: j, y: i };
         }

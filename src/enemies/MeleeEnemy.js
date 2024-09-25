@@ -1,4 +1,7 @@
-function MeleeEnemy(grid, maxHealth, damage) {
+function MeleeEnemy(grid, options) {
+  var maxHealth = options.maxHealth;
+  var damage = options.damage;
+
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
 
@@ -157,7 +160,13 @@ function MeleeEnemy(grid, maxHealth, damage) {
     grid[newY][newX] = enemy;
   }
 
-  var meleeEnemy = Enemy(grid, "meleeEnemy", maxHealth, damage, makeTurn);
+  var meleeEnemy = Enemy(grid, {
+    name: "meleeEnemy",
+    maxHealth,
+    damage,
+    makeTurn,
+  });
+
   meleeEnemy.styleClass = "tileE";
   meleeEnemy.move = move;
   meleeEnemy.direction = direction;

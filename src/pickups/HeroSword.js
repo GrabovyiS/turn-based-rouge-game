@@ -11,6 +11,10 @@ function HeroSword(grid) {
     hero.inventory.push(grid[swordCoords.y][swordCoords.x]);
   }
 
-  var flask = HeroPickup(grid, "sword", addSword, "tileSW");
+  var flask = HeroPickup(grid, {
+    name: "sword",
+    effect: addSword,
+    styleClass: "tileSW",
+  });
   return flask;
 }

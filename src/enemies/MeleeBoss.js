@@ -1,4 +1,7 @@
-function MeleeBoss(grid, maxHealth, damage) {
+function MeleeBoss(grid, options) {
+  var maxHealth = options.maxHealth;
+  var damage = options.damage;
+
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
 
@@ -95,7 +98,12 @@ function MeleeBoss(grid, maxHealth, damage) {
     grid[newY][newX] = enemy;
   }
 
-  var meleeBoss = Enemy(grid, "meleeBoss", maxHealth, damage, makeTurn);
+  var meleeBoss = Enemy(grid, {
+    name: "meleeBoss",
+    maxHealth,
+    damage,
+    makeTurn,
+  });
   meleeBoss.styleClass = "tileB";
   meleeBoss.move = move;
 
