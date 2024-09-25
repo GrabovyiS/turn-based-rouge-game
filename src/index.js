@@ -24,7 +24,7 @@ function rougeGame() {
 
     setUpEventListeners();
 
-    renderField();
+    render();
 
     isPlayersTurn = true;
   }
@@ -71,7 +71,7 @@ function rougeGame() {
 
     isPlayersTurn = false;
 
-    renderField();
+    render();
 
     clearDeadEnemies();
     if (enemies.length === 0) {
@@ -82,7 +82,7 @@ function rougeGame() {
     // and wait for it
     setTimeout(() => {
       makeEnemiesTurn();
-      renderField();
+      render();
     }, 30);
   }
 
@@ -116,7 +116,7 @@ function rougeGame() {
     enemies.forEach((enemy) => {
       setTimeout(() => {
         enemy.makeTurn();
-        renderField();
+        render();
       }, timeOffset);
 
       timeOffset += 30;
@@ -128,7 +128,7 @@ function rougeGame() {
     }, timeOffset);
   }
 
-  function renderField() {
+  function render() {
     fieldContainer.textContent = "";
 
     for (var i = 0; i < gameFieldHeight; i++) {
@@ -179,7 +179,7 @@ function rougeGame() {
     }
   }
 
-  return { initGameGrid, showIntroductionOverlay };
+  return { initGameGrid, showIntroductionOverlay, render };
 }
 
 var game = rougeGame();

@@ -1,4 +1,4 @@
-function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
+function Hero(grid, maxHealth, baseDamage) {
   var currentHealth = maxHealth;
   var damage = baseDamage;
   var type = "hero";
