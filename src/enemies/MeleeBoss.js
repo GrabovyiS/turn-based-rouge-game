@@ -28,7 +28,7 @@ function MeleeBoss(grid, maxHealth, damage) {
       possibleNextMoves.push({ x: ownX, y: ownY - 1 });
     }
 
-    if (possibleNextMoves === 0) {
+    if (possibleNextMoves.length === 0) {
       return;
     }
 
