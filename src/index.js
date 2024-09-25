@@ -32,7 +32,6 @@ function rougeGame() {
   function setUpEventListeners() {
     window.addEventListener("keydown", (e) => {
       if (!isPlayersTurn) {
-        console.log("nah, haha");
         return;
       }
 
@@ -48,7 +47,13 @@ function rougeGame() {
 
       const currentHeroCoords = getHeroCoords(grid);
       const hero = grid[currentHeroCoords.y][currentHeroCoords.x];
-      hero.makeTurn(e.code);
+
+      if (hero.canMakeTurn(e.code)) {
+        hero.makeTurn(e.code);
+      } else {
+        return;
+      }
+
       isPlayersTurn = false;
 
       renderField();

@@ -7,6 +7,40 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
   var gameFieldHeight = grid.length;
   var gameFieldWidth = grid[0].length;
 
+  function canMakeTurn(keyCode) {
+    var currentHeroCoords = getHeroCoords(grid);
+    var currentHeroX = currentHeroCoords.x;
+    var currentHeroY = currentHeroCoords.y;
+
+    switch (keyCode) {
+      case "KeyW":
+        if (!canGoThere(currentHeroX, currentHeroY - 1)) {
+          return false;
+        }
+        break;
+
+      case "KeyS":
+        if (!canGoThere(currentHeroX, currentHeroY + 1)) {
+          return false;
+        }
+        break;
+
+      case "KeyA":
+        if (!canGoThere(currentHeroX - 1, currentHeroY)) {
+          return false;
+        }
+        break;
+
+      case "KeyD":
+        if (!canGoThere(currentHeroX + 1, currentHeroY)) {
+          return false;
+        }
+        break;
+    }
+
+    return true;
+  }
+
   function makeTurn(keyCode) {
     var currentHeroCoords = getHeroCoords(grid);
     var currentHeroX = currentHeroCoords.x;
@@ -113,6 +147,7 @@ function Hero(grid, maxHealth, baseDamage, currentHeroCoords) {
     baseDamage,
     styleClass,
     damage,
+    canMakeTurn,
     makeTurn,
   };
 }
