@@ -37,7 +37,7 @@ function getRandomEmptySpace(grid) {
   var randomX = getRandomNumber(0, gameFieldWidth - 1);
   var randomY = getRandomNumber(0, gameFieldHeight - 1);
 
-  while (grid[randomY][randomX] !== "Empty") {
+  while (grid[randomY][randomX] !== "empty") {
     randomX = getRandomNumber(0, gameFieldWidth - 1);
     randomY = getRandomNumber(0, gameFieldHeight - 1);
   }

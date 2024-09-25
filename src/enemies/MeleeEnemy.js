@@ -117,7 +117,7 @@ function MeleeEnemy(grid, maxHealth, damage) {
       }
     }
 
-    if (grid[y][x] === "Wall") {
+    if (grid[y][x] === "wall") {
       return false;
     }
 
@@ -143,7 +143,7 @@ function MeleeEnemy(grid, maxHealth, damage) {
       grid[oldY][oldX] = grid[oldY][oldX].tileBehind;
       enemy.tileBehind = null;
     } else {
-      grid[oldY][oldX] = "Empty";
+      grid[oldY][oldX] = "empty";
     }
 
     // 'hide' pickups instead of destroying them

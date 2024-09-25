@@ -88,9 +88,9 @@ function rougeGame() {
     for (var i = 0; i < gameFieldHeight; i++) {
       for (var j = 0; j < gameFieldWidth; j++) {
         var currentTile = document.createElement("div");
-        if (grid[i][j] === "Empty") {
+        if (grid[i][j] === "empty") {
           currentTile.classList.add("tile");
-        } else if (grid[i][j] === "Wall") {
+        } else if (grid[i][j] === "wall") {
           currentTile.classList.add("tile", "tileW");
         } else if (grid[i][j] === "Sword") {
           currentTile.classList.add("tile", "tileSW");
