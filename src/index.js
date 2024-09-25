@@ -12,6 +12,7 @@ function rougeGame() {
 
     createRandomlyPlacedEntities(grid, 2, HeroSword);
     createRandomlyPlacedEntities(grid, 10, HeroFlask);
+    createRandomlyPlacedEntities(grid, 4, HeroTriggeredBomb);
 
     createRandomlyPlacedEntities(grid, 1, MeleeBoss, 100, 10);
     createRandomlyPlacedEntities(grid, 10, MeleeEnemy, 10, 5);
@@ -20,6 +21,8 @@ function rougeGame() {
     createRandomlyPlacedEntities(grid, 1, Hero, 100, 3);
 
     setUpEventListeners();
+
+    console.log(grid);
 
     renderField();
   }

@@ -12,6 +12,6 @@ function HeroFlask(grid) {
     }
   }
 
-  var flask = HeroPickup("flask", healHero, "tileHP");
+  var flask = HeroPickup(grid, "flask", healHero, "tileHP");
   return flask;
 }

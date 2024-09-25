@@ -33,7 +33,6 @@ function MeleeBoss(grid, maxHealth, damage) {
     }
 
     var randomIndex = Math.floor(Math.random() * possibleNextMoves.length);
-    console.log(possibleNextMoves, randomIndex);
 
     var newX = possibleNextMoves[randomIndex].x;
     var newY = possibleNextMoves[randomIndex].y;
@@ -77,20 +76,23 @@ function MeleeBoss(grid, maxHealth, damage) {
 
   function move(oldX, oldY, newX, newY) {
     var enemy = grid[oldY][oldX];
-    grid[oldY][oldX] = "Empty";
 
-    if (grid[oldY][oldX].hidden) {
-      grid[oldY][oldX] = hidden;
-      grid[oldY][oldX].hidden = null;
+    if (grid[oldY][oldX].tileBehind) {
+      grid[oldY][oldX] = grid[oldY][oldX].tileBehind;
+      enemy.tileBehind = null;
+    } else {
+      grid[oldY][oldX] = "Empty";
+    }
+
+    // 'hide' pickups instead of destroying them
+    // could work the same for different types of terrains
+    if (typeof grid[newY][newX] === "object") {
+      if (grid[newY][newX].type === "heroPickUp") {
+        enemy.tileBehind = grid[newY][newX];
+      }
     }
 
     grid[newY][newX] = enemy;
-
-    if (typeof grid[newY][newX] === "object") {
-      if (grid[newY][newX].type === "heroPickUp") {
-        // hide that
-      }
-    }
   }
 
   const meleeBoss = Enemy(grid, "meleeBoss", maxHealth, damage, makeTurn);

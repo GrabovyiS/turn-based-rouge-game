@@ -14,6 +14,6 @@ function HeroSword(grid) {
     inventory.appendChild(newSword);
   }
 
-  var flask = HeroPickup("sword", addSword, "tileSW");
+  var flask = HeroPickup(grid, "sword", addSword, "tileSW");
   return flask;
 }
